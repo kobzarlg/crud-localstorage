@@ -137,9 +137,9 @@ export default {
         const json = JSON.parse(this.json),
         propsMustBe = ['name','surname','phone','email'],
         regex = {
-          'name': /^[A-Z][\w\ \-\.]{2,20}/g,
-          'surname': /^[A-Z][\w\ \-\.]{2,40}/g,
-          'phone': /^([\d]){10,12}/g,
+          'name': /^[A-Z][\w\ \-\.]{2,20}$/g,
+          'surname': /^[A-Z][\w\ \-\.]{2,40}$/g,
+          'phone': /^([\d]){10,12}$/g,
           'email': /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/gi,
         }
         // check json on match and existence of required arguments
