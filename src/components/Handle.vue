@@ -137,20 +137,23 @@ export default {
         const json = JSON.parse(this.json),
         propsMustBe = ['name','surname','phone','email'],
         regex = {
-          'name': /^([A-Z][\w\s\-\.]){2,20}/,
-          'surname': /^([A-Z][\w\s\-\.]){2,40}/,
-          'phone': /^([\d]){10,12}/,
-          'email': /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/i,
+          'name': /^[A-Z][\w\ \-\.]{2,20}/g,
+          'surname': /^[A-Z][\w\ \-\.]{2,40}/g,
+          'phone': /^([\d]){10,12}/g,
+          'email': /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/gi,
         }
-        // check json on match, empty values and existence of required arguments
-        for (let prop in json) {
-          if (json.hasOwnProperty(prop)) {
-            if ( propsMustBe.indexOf(prop) === -1  ) throw 'JSON does not contain all necessery arguments'
-            if ( !json.prop.length ) throw 'JSON should does not contain empty value at necessery arguments'
-            if ( !regex[prop].test(json[prop]) ) throw 'JSON does not match pattern'
-          }
+        // check json on match and existence of required arguments
+        propsMustBe.forEach(elem => {
+          if ( Object.keys(json).indexOf(elem) === -1  ) throw 'JSON does not contain all necessery arguments'
+          if ( !regex[elem].test(json[elem]) ) throw 'JSON does not match pattern'
+        })
+        this.user = {
+          id: this.user.id,
+          name: json.name,
+          surname: json.surname,
+          phone: json.phone,
+          email: json.email,
         }
-        this.user = json
         this.error = ''
         this.submitForm()
       } catch (e) {
